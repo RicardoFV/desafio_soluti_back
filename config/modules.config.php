@@ -33,5 +33,5 @@ return [
     'DoctrineORMModule',
     'ZfrCors',
     'Application',
-    'Gestao_De_Contratos',
+    'Gestao',
 ];
