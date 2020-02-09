@@ -36,7 +36,7 @@ class UsuariosResource extends AbstractResourceListener
 
         return $stmt->execute();
         */
-
+        // insere um novo usuario 
         $this->em->persist($this->usuario);
         $this->em->flush();
 
@@ -56,6 +56,7 @@ class UsuariosResource extends AbstractResourceListener
         $stmt->bindValue(1, $id);
         return $stmt->execute();
         */
+        // deleta usuario por id
         $data = $this->em->getRepository(Usuarios::class);
         $user = $data->find($id);
         if ($user){
@@ -86,6 +87,7 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
+        // faz a busca do usuario por id
         $query = "select * from usuarios where id=?";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1, $id);
@@ -102,6 +104,7 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
+        // busca todos os usuarios e retorna uma coletion
         $query = "select * from usuarios";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
@@ -152,6 +155,7 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
+        // atualiza os dados
         $this->usuario->setNomeCompleto($data->nome_completo);
         $this->usuario->setEmail($data->email);
         $this->usuario->setSenha($data->senha);
