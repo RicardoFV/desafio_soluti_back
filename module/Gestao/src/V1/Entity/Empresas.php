@@ -65,13 +65,10 @@ class Empresas
      */
     private $natureza_Juridica;
 
+    // varias empresas podem ser gerida por um usuario
     /**
- * @var Usuarios
- *
- * @ORM\ManyToOne(targetEntity="Empresas")
- * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
- * @ORM\Column(type="integer")
- */
+     * @ORM\ManyToOne(targetEntity="Usuarios")
+     */
     private $id_usuario;
     /**
      *
@@ -120,6 +117,5 @@ class Empresas
     {
         return $this-> $name;
     }
-
 
 }

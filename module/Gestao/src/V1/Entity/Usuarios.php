@@ -36,6 +36,11 @@ class Usuarios
      */
     private $senha;
 
+    // um usuario pode ter varias empresas
+    /**
+     * @ORM\OneToMany(targetEntity="Empresas", mappedBy="Usuarios")
+     */
+    private $empresas;
     // Metodos magicos
     public function __set($name, $value)
     {
