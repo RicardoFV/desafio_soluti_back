@@ -23,20 +23,20 @@ class UsuariosResource extends AbstractResourceListener
     public function create($data)
     {
 
-        $this->usuario->setNomeCompleto($data->nome_completo);
-        $this->usuario->setEmail($data->email);
-        $this->usuario->setSenha($data->senha);
+        $this->usuario->__set('nome_Completo',$data->nome_completo);
+        $this->usuario->__set('email',$data->email);
+        $this->usuario->__set('senha',$data->senha);
 
         /*
         $query ="insert into usuarios(nome_completo, senha, email) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->usuario->getNomeCompleto());
-        $stmt->bindValue(2,$this->usuario->getSenha());
-        $stmt->bindValue(3,$this->usuario->getEmail());
+        $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
+        $stmt->bindValue(2,$this->usuario->__get('senha'));
+        $stmt->bindValue(3,$this->usuario->__get(email));
 
         return $stmt->execute();
         */
-        // insere um novo usuario 
+        // insere um novo usuario
         $this->em->persist($this->usuario);
         $this->em->flush();
 
@@ -156,17 +156,17 @@ class UsuariosResource extends AbstractResourceListener
     public function update($id, $data)
     {
         // atualiza os dados
-        $this->usuario->setNomeCompleto($data->nome_completo);
-        $this->usuario->setEmail($data->email);
-        $this->usuario->setSenha($data->senha);
-        $this->usuario->setId($id);
+        $this->usuario->__set('nome_Completo',$data->nome_completo);
+        $this->usuario->__set('email',$data->email);
+        $this->usuario->__set('senha',$data->senha);
+        $this->usuario->__set('id',$id);
 
         $query ="update usuarios set nome_completo=?, senha=?, email=? where id = ?";
         $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->usuario->getNomeCompleto());
-        $stmt->bindValue(2,$this->usuario->getSenha());
-        $stmt->bindValue(3,$this->usuario->getEmail());
-        $stmt->bindValue(4,$this->usuario->getId());
+        $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
+        $stmt->bindValue(2,$this->usuario->__get('senha'));
+        $stmt->bindValue(3,$this->usuario->__get('email'));
+        $stmt->bindValue(4,$this->usuario->__get('id'));
 
         return $stmt->execute();
     }

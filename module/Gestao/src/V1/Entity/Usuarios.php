@@ -42,60 +42,14 @@ class Usuarios
      */
     private $empresas;
 
-    public function getId()
+    public function __get($name)
     {
-        return $this->id;
+        return $this-> $name;
     }
 
-
-    public function setId($id)
+    public function __set($name, $value)
     {
-        $this->id = $id;
+       $this-> $name = $value;
     }
-
-
-    public function getNomeCompleto()
-    {
-        return $this->nome_Completo;
-    }
-
-
-    public function setNomeCompleto($nome_Completo)
-    {
-        $this->nome_Completo = $nome_Completo;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function getSenha()
-    {
-        return $this->senha;
-    }
-
-    public function setSenha($senha)
-    {
-        $this->senha = $senha;
-    }
-
-    public function getEmpresas()
-    {
-        return $this->empresas;
-    }
-
-    public function setEmpresas($empresas)
-    {
-        $this->empresas = $empresas;
-    }
-
-
 
 }
