@@ -14,7 +14,7 @@ class Contratos
     private $data_Anexo;
     private $id_Empresa;
 
-    // METODOS MAGICOS
+    // Metodos magicos
     public function __set($name, $value)
     {
         $this-> $name = $value;

@@ -11,7 +11,7 @@ class Administradores
     private $tipo;
     private $id_Contrato;
 
-    // METODOS MAGICOS
+    // Metodos magicos
     public function __set($name, $value)
     {
         $this-> $name = $value;

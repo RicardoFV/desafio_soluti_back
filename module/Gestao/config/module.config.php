@@ -20,7 +20,6 @@ return [
         'factories' => [
             \Gestao\V1\Rest\Usuarios\UsuariosResource::class => \Gestao\V1\Rest\Usuarios\UsuariosResourceFactory::class,
             \Gestao\V1\Rest\Empresas\EmpresasResource::class => \Gestao\V1\Rest\Empresas\EmpresasResourceFactory::class,
-            \Gestao\V1\Rest\Enderecos\EnderecosResource::class => \Gestao\V1\Rest\Enderecos\EnderecosResourceFactory::class,
             \Gestao\V1\Rest\Contratos\ContratosResource::class => \Gestao\V1\Rest\Contratos\ContratosResourceFactory::class,
             \Gestao\V1\Rest\Administradores\AdministradoresResource::class => \Gestao\V1\Rest\Administradores\AdministradoresResourceFactory::class,
         ],
@@ -42,15 +41,6 @@ return [
                     'route' => '/empresas[/:empresas_id]',
                     'defaults' => [
                         'controller' => 'Gestao\\V1\\Rest\\Empresas\\Controller',
-                    ],
-                ],
-            ],
-            'gestao.rest.enderecos' => [
-                'type' => 'Segment',
-                'options' => [
-                    'route' => '/enderecos[/:enderecos_id]',
-                    'defaults' => [
-                        'controller' => 'Gestao\\V1\\Rest\\Enderecos\\Controller',
                     ],
                 ],
             ],
@@ -78,7 +68,6 @@ return [
         'uri' => [
             0 => 'gestao.rest.usuarios',
             1 => 'gestao.rest.empresas',
-            2 => 'gestao.rest.enderecos',
             3 => 'gestao.rest.contratos',
             4 => 'gestao.rest.administradores',
         ],
@@ -127,28 +116,6 @@ return [
             'entity_class' => \Gestao\V1\Rest\Empresas\EmpresasEntity::class,
             'collection_class' => \Gestao\V1\Rest\Empresas\EmpresasCollection::class,
             'service_name' => 'Empresas',
-        ],
-        'Gestao\\V1\\Rest\\Enderecos\\Controller' => [
-            'listener' => \Gestao\V1\Rest\Enderecos\EnderecosResource::class,
-            'route_name' => 'gestao.rest.enderecos',
-            'route_identifier_name' => 'enderecos_id',
-            'collection_name' => 'enderecos',
-            'entity_http_methods' => [
-                0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
-            ],
-            'collection_http_methods' => [
-                0 => 'GET',
-                1 => 'POST',
-            ],
-            'collection_query_whitelist' => [],
-            'page_size' => 25,
-            'page_size_param' => null,
-            'entity_class' => \Gestao\V1\Rest\Enderecos\EnderecosEntity::class,
-            'collection_class' => \Gestao\V1\Rest\Enderecos\EnderecosCollection::class,
-            'service_name' => 'Enderecos',
         ],
         'Gestao\\V1\\Rest\\Contratos\\Controller' => [
             'listener' => \Gestao\V1\Rest\Contratos\ContratosResource::class,
@@ -199,7 +166,6 @@ return [
         'controllers' => [
             'Gestao\\V1\\Rest\\Usuarios\\Controller' => 'HalJson',
             'Gestao\\V1\\Rest\\Empresas\\Controller' => 'HalJson',
-            'Gestao\\V1\\Rest\\Enderecos\\Controller' => 'HalJson',
             'Gestao\\V1\\Rest\\Contratos\\Controller' => 'HalJson',
             'Gestao\\V1\\Rest\\Administradores\\Controller' => 'HalJson',
         ],
@@ -210,11 +176,6 @@ return [
                 2 => 'application/json',
             ],
             'Gestao\\V1\\Rest\\Empresas\\Controller' => [
-                0 => 'application/vnd.gestao.v1+json',
-                1 => 'application/hal+json',
-                2 => 'application/json',
-            ],
-            'Gestao\\V1\\Rest\\Enderecos\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
@@ -236,10 +197,6 @@ return [
                 1 => 'application/json',
             ],
             'Gestao\\V1\\Rest\\Empresas\\Controller' => [
-                0 => 'application/vnd.gestao.v1+json',
-                1 => 'application/json',
-            ],
-            'Gestao\\V1\\Rest\\Enderecos\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
             ],
@@ -277,18 +234,6 @@ return [
                 'entity_identifier_name' => 'id',
                 'route_name' => 'gestao.rest.empresas',
                 'route_identifier_name' => 'empresas_id',
-                'is_collection' => true,
-            ],
-            \Gestao\V1\Rest\Enderecos\EnderecosEntity::class => [
-                'entity_identifier_name' => 'id',
-                'route_name' => 'gestao.rest.enderecos',
-                'route_identifier_name' => 'enderecos_id',
-                'hydrator' => \Zend\Hydrator\ArraySerializable::class,
-            ],
-            \Gestao\V1\Rest\Enderecos\EnderecosCollection::class => [
-                'entity_identifier_name' => 'id',
-                'route_name' => 'gestao.rest.enderecos',
-                'route_identifier_name' => 'enderecos_id',
                 'is_collection' => true,
             ],
             \Gestao\V1\Rest\Contratos\ContratosEntity::class => [
