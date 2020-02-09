@@ -11,7 +11,7 @@ class UsuariosResource extends AbstractResourceListener
     private $usuario;
     public function __construct($em)
     {
-        $this->em = $em->getConnection();
+        $this->em = $em;
         $this->usuario = new Usuarios();
     }
     /**
@@ -22,18 +22,23 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        $this->usuario->__set('nome_completo', $data->nome_completo);
-        $this->usuario->__set('email', $data->email);
-        $this->usuario->__set('senha',$data->senha);
 
-        $query = $this->em->createQueryBuilder('insert into usuarios(nome_completo,email,senha) values(?,?,?)');
-        $query->bindValue(1, $this->usuario->__get('nome_completo') );
-        $query->bindValue(2, $this->usuario->__get('email') );
-        $query->bindValue(3, $this->usuario->__get('senha') );
+        $this->usuario->setNomeCompleto($data->nome_completo);
+        $this->usuario->setEmail($data->email);
+        $this->usuario->setSenha($data->senha);
 
-        $query->execute();
+        /*
+        $query ="insert into usuarios(nome_completo, senha, email) values(?,?,?)";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1,$this->usuario->getNomeCompleto());
+        $stmt->bindValue(2,$this->usuario->getSenha());
+        $stmt->bindValue(3,$this->usuario->getEmail());
 
-        print_r($this->usuario);
+        return $stmt->execute();
+        */
+
+        $this->em->persist($this->usuario);
+        $this->em->flush();
 
     }
 
@@ -45,7 +50,21 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        /*
+        $query = "delete from usuarios where id=?";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1, $id);
+        return $stmt->execute();
+        */
+        $data = $this->em->getRepository(Usuarios::class);
+        $user = $data->find($id);
+        if ($user){
+            $this->em->remove($user);
+            $this->em->flush();
+            echo 'Usuário removido com sucesso';
+        }else{
+            echo 'Usuario não encontrado, ou não existe';
+        }
     }
 
     /**
@@ -67,7 +86,12 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        $query = "select * from usuarios where id=?";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -78,7 +102,11 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        $query = "select * from usuarios";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->execute();
+        return new UsuariosCollection($stmt->fetchAll(\PDO::FETCH_OBJ));
+
     }
 
     /**
@@ -124,6 +152,18 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        $this->usuario->setNomeCompleto($data->nome_completo);
+        $this->usuario->setEmail($data->email);
+        $this->usuario->setSenha($data->senha);
+        $this->usuario->setId($id);
+
+        $query ="update usuarios set nome_completo=?, senha=?, email=? where id = ?";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1,$this->usuario->getNomeCompleto());
+        $stmt->bindValue(2,$this->usuario->getSenha());
+        $stmt->bindValue(3,$this->usuario->getEmail());
+        $stmt->bindValue(4,$this->usuario->getId());
+
+        return $stmt->execute();
     }
 }

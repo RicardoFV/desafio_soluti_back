@@ -174,39 +174,48 @@ return [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'multipart/form-data',
+
             ],
             'Gestao\\V1\\Rest\\Empresas\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'multipart/form-data',
             ],
             'Gestao\\V1\\Rest\\Contratos\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'multipart/form-data',
             ],
             'Gestao\\V1\\Rest\\Administradores\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'multipart/form-data',
             ],
         ],
         'content_type_whitelist' => [
             'Gestao\\V1\\Rest\\Usuarios\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
+                2 => 'multipart/form-data',
             ],
             'Gestao\\V1\\Rest\\Empresas\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
+                2 => 'multipart/form-data',
             ],
             'Gestao\\V1\\Rest\\Contratos\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
+                2 => 'multipart/form-data',
             ],
             'Gestao\\V1\\Rest\\Administradores\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
+                2 => 'multipart/form-data',
             ],
         ],
     ],

@@ -41,15 +41,61 @@ class Usuarios
      * @ORM\OneToMany(targetEntity="Empresas", mappedBy="Usuarios")
      */
     private $empresas;
-    // Metodos magicos
-    public function __set($name, $value)
+
+    public function getId()
     {
-        $this-> $name = $value;
+        return $this->id;
     }
 
-    public function __get($name)
+
+    public function setId($id)
     {
-        return $this-> $name;
+        $this->id = $id;
     }
+
+
+    public function getNomeCompleto()
+    {
+        return $this->nome_Completo;
+    }
+
+
+    public function setNomeCompleto($nome_Completo)
+    {
+        $this->nome_Completo = $nome_Completo;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getSenha()
+    {
+        return $this->senha;
+    }
+
+    public function setSenha($senha)
+    {
+        $this->senha = $senha;
+    }
+
+    public function getEmpresas()
+    {
+        return $this->empresas;
+    }
+
+    public function setEmpresas($empresas)
+    {
+        $this->empresas = $empresas;
+    }
+
+
 
 }
