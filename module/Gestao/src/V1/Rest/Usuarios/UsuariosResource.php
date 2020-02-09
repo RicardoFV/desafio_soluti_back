@@ -3,9 +3,17 @@ namespace Gestao\V1\Rest\Usuarios;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Gestao\V1\Entity\Usuarios;
 
 class UsuariosResource extends AbstractResourceListener
 {
+    private $em;
+    private $usuario;
+    public function __construct($em)
+    {
+        $this->em = $em->getConnection();
+        $this->usuario = new Usuarios();
+    }
     /**
      * Create a resource
      *
@@ -14,7 +22,19 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $this->usuario->__set('nome_completo', $data->nome_completo);
+        $this->usuario->__set('email', $data->email);
+        $this->usuario->__set('senha',$data->senha);
+
+        $query = $this->em->createQueryBuilder('insert into usuarios(nome_completo,email,senha) values(?,?,?)');
+        $query->bindValue(1, $this->usuario->__get('nome_completo') );
+        $query->bindValue(2, $this->usuario->__get('email') );
+        $query->bindValue(3, $this->usuario->__get('senha') );
+
+        $query->execute();
+
+        print_r($this->usuario);
+
     }
 
     /**
