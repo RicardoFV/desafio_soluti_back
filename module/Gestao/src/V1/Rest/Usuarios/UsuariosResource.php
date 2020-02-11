@@ -108,7 +108,7 @@ class UsuariosResource extends AbstractResourceListener
         $query = "select * from usuarios";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
-        return new UsuariosCollection($stmt->fetchAll(\PDO::FETCH_OBJ));
+        return  $stmt->fetchAll(\PDO::FETCH_OBJ);
 
     }
 

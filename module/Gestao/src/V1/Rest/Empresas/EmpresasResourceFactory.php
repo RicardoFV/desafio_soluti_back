@@ -5,6 +5,7 @@ class EmpresasResourceFactory
 {
     public function __invoke($services)
     {
-        return new EmpresasResource();
+        $em = $services->get('Doctrine\ORM\EntityManager');
+        return new EmpresasResource($em);
     }
 }
