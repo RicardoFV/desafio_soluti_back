@@ -25,7 +25,7 @@ class UsuariosResource extends AbstractResourceListener
 
         $this->usuario->__set('nome_Completo',$data->nome_completo);
         $this->usuario->__set('email',$data->email);
-        $this->usuario->__set('senha',$data->senha);
+        $this->usuario->setSenha($data->senha);
 
         /*
         $query ="insert into usuarios(nome_completo, senha, email) values(?,?,?)";
@@ -158,13 +158,13 @@ class UsuariosResource extends AbstractResourceListener
         // atualiza os dados
         $this->usuario->__set('nome_Completo',$data->nome_completo);
         $this->usuario->__set('email',$data->email);
-        $this->usuario->__set('senha',$data->senha);
+        $this->usuario->setSenha($data->senha);
         $this->usuario->__set('id',$id);
 
         $query ="update usuarios set nome_completo=?, senha=?, email=? where id = ?";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
-        $stmt->bindValue(2,$this->usuario->__get('senha'));
+        $stmt->bindValue(2,$this->usuario->getSenha());
         $stmt->bindValue(3,$this->usuario->__get('email'));
         $stmt->bindValue(4,$this->usuario->__get('id'));
 

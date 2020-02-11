@@ -52,4 +52,11 @@ class Usuarios
        $this-> $name = $value;
     }
 
+    public function setSenha($senha){
+        $this->senha = md5($senha);
+    }
+    public function getSenha(){
+        return $this->senha; 
+    }
+
 }
