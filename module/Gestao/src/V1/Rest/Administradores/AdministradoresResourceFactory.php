@@ -5,6 +5,7 @@ class AdministradoresResourceFactory
 {
     public function __invoke($services)
     {
-        return new AdministradoresResource();
+        $em = $services->get('Doctrine\ORM\EntityManager');
+        return new AdministradoresResource($em);
     }
 }

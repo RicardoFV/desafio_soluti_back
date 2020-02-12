@@ -88,7 +88,7 @@ class UsuariosResource extends AbstractResourceListener
     public function fetch($id)
     {
         // faz a busca do usuario por id
-        $query = "select * from usuarios where id=?";
+        $query = "select id, nome_completo, email from usuarios where id=?";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1, $id);
         $stmt->execute();
@@ -105,7 +105,7 @@ class UsuariosResource extends AbstractResourceListener
     public function fetchAll($params = [])
     {
         // busca todos os usuarios e retorna uma coletion
-        $query = "select * from usuarios";
+        $query = "select id, nome_completo, email from usuarios";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return  $stmt->fetchAll(\PDO::FETCH_OBJ);

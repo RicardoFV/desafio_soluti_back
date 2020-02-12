@@ -5,6 +5,7 @@ class ContratosResourceFactory
 {
     public function __invoke($services)
     {
-        return new ContratosResource();
+        $em = $services->get('Doctrine\ORM\EntityManager');
+        return new ContratosResource($em);
     }
 }

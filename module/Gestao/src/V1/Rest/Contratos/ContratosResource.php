@@ -3,18 +3,42 @@ namespace Gestao\V1\Rest\Contratos;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Gestao\V1\Entity\Contratos;
 
 class ContratosResource extends AbstractResourceListener
 {
+    private $em;
+    private $contratos;
     /**
      * Create a resource
      *
      * @param  mixed $data
      * @return ApiProblem|mixed
      */
+    public function __construct($em)
+    {
+        $this->em = $em;
+        $this->contratos = new Contratos();
+    }
+
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        $this->contratos->__set('caminho_Arquivo', $data->caminho);
+        $this->contratos->__set('situacao', $data->situacao);
+        $this->contratos->__set('id_empresa_id', $data->id_empresa);
+
+        /*
+        $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
+        $stmt->bindValue(2,$this->contratos->__get('situacao'));
+        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
+
+        return $stmt->execute();
+        */
+        // insere um novo administradores
+        $this->em->persist($this->contratos);
+        $this->em->flush();
     }
 
     /**
@@ -25,7 +49,22 @@ class ContratosResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        /*
+       $query = "delete from contratos where id=?";
+       $stmt = $this->em->getConnection()->prepare($query);
+       $stmt->bindValue(1, $id);
+       return $stmt->execute();
+       */
+        // deleta contratos por id
+        $data = $this->em->getRepository(Contratos::class);
+        $contrato = $data->find($id);
+        if ($contrato){
+            $this->em->remove($contrato);
+            $this->em->flush();
+            echo 'Contrato removido com sucesso';
+        }else{
+            echo 'Contrato não encontrado, ou não existe';
+        }
     }
 
     /**
@@ -47,7 +86,13 @@ class ContratosResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return new ApiProblem(405, 'The GET method has not been defined for individual resources');
+        // faz a busca do contratos por id
+        $query = "select * from contratos where id=?";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -58,7 +103,11 @@ class ContratosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
+        // busca todos os contratos e retorna uma coletion
+        $query = "select * from contratos";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->execute();
+        return  $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -104,6 +153,19 @@ class ContratosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        // atualiza os dados
+        $this->contratos->__set('caminho_Arquivo', $data->caminho);
+        $this->contratos->__set('situacao', $data->situacao);
+        $this->contratos->__set('id_empresa_id', $data->id_empresa);
+        $this->contratos->__set('id',$id);
+
+        $query = "insert into contratos(nome, tipo, id_Contrato_id) values(?,?,?)";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
+        $stmt->bindValue(2,$this->contratos->__get('situacao'));
+        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
+        $stmt->bindValue(4,$this->contratos->__get(id));
+
+        return $stmt->execute();
     }
 }
