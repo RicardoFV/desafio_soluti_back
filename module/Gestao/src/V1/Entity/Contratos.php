@@ -20,6 +20,11 @@ class Contratos
     private $id;
     /**
      *
+     * @var string @ORM\Column(name="nome", type="string", length=255, nullable=true)
+     */
+    private $nome;
+    /**
+     *
      * @var string @ORM\Column(name="caminho_arquivo", type="string", length=255, nullable=true)
      */
     private $caminho_arquivo;
