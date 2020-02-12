@@ -26,10 +26,14 @@ class Administradores
      * @var string @ORM\Column(name="tipo", type="string", length=100, nullable=true)
      */
     private $tipo;
-    /**
+     /**
+     * @var Contratos
+     *
      * @ORM\ManyToOne(targetEntity="Contratos")
+     * @ORM\JoinColumn(name="id_contrato", referencedColumnName="id")
+     * @ORM\Column(type="integer")
      */
-    private $id_Contrato;
+    private $id_contrato;
 
     // Metodos magicos
     public function __set($name, $value)

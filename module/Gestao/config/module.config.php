@@ -165,8 +165,8 @@ return [
     'zf-content-negotiation' => [
         'controllers' => [
             'Gestao\\V1\\Rest\\Usuarios\\Controller' => 'Json',
-            'Gestao\\V1\\Rest\\Empresas\\Controller' => 'HalJson',
-            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'HalJson',
+            'Gestao\\V1\\Rest\\Empresas\\Controller' => 'Json',
+            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'Json',
             'Gestao\\V1\\Rest\\Administradores\\Controller' => 'HalJson',
         ],
         'accept_whitelist' => [
@@ -200,6 +200,7 @@ return [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
                 2 => 'multipart/form-data',
+                3 => 'application/hal+json',
             ],
             'Gestao\\V1\\Rest\\Empresas\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
@@ -210,11 +211,13 @@ return [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
                 2 => 'multipart/form-data',
+                3 => 'application/hal+json',
             ],
             'Gestao\\V1\\Rest\\Administradores\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
                 2 => 'multipart/form-data',
+                3 => 'application/hal+json',
             ],
         ],
     ],

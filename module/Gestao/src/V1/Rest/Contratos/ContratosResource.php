@@ -1,6 +1,7 @@
 <?php
 namespace Gestao\V1\Rest\Contratos;
 
+use Zend\Uri\File;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use Gestao\V1\Entity\Contratos;
@@ -23,11 +24,26 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
+        /*
+        $arquivo = new File($data->arquivo);
+        if(isset($_FILES[$arquivo])){
+            date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
+
+            $ext = strtolower(substr($_FILES[$arquivo]['name'],-4)); //Pegando extensão do arquivo
+            $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
+            $dir = './Contratos'; //Diretório para uploads
+      
+            move_uploaded_file($_FILES[$arquivo]['tmp_name'], $dir.$new_name); //Fazer upload do arquivo
+        }else{
+            echo 'nao existe ';
+        }
+        */
+
         $this->contratos->__set('caminho_Arquivo', $data->caminho);
         $this->contratos->__set('situacao', $data->situacao);
         $this->contratos->__set('id_empresa_id', $data->id_empresa);
 
-        /*
+
         $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
@@ -35,10 +51,11 @@ class ContratosResource extends AbstractResourceListener
         $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
 
         return $stmt->execute();
-        */
+
         // insere um novo administradores
         $this->em->persist($this->contratos);
         $this->em->flush();
+
     }
 
     /**
@@ -156,15 +173,15 @@ class ContratosResource extends AbstractResourceListener
         // atualiza os dados
         $this->contratos->__set('caminho_Arquivo', $data->caminho);
         $this->contratos->__set('situacao', $data->situacao);
-        $this->contratos->__set('id_empresa_id', $data->id_empresa);
+        $this->contratos->__set('id_empresa', $data->id_empresa);
         $this->contratos->__set('id',$id);
 
         $query = "insert into contratos(nome, tipo, id_Contrato_id) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
+        $stmt->bindValue(1,$this->contratos->__get('caminho_arquivo'));
         $stmt->bindValue(2,$this->contratos->__get('situacao'));
-        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
-        $stmt->bindValue(4,$this->contratos->__get(id));
+        $stmt->bindValue(3,$this->contratos->__get('id_empresa'));
+        $stmt->bindValue(4,$this->contratos->__get('id'));
 
         return $stmt->execute();
     }

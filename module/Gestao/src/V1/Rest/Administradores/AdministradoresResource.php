@@ -26,7 +26,7 @@ class AdministradoresResource extends AbstractResourceListener
 
         $this->administradores->__set('nome', $data->nome);
         $this->administradores->__set('tipo', $data->nome);
-        $this->administradores->__set('id_Contrato', $data->id_contrato);
+        $this->administradores->__set('id_contrato', $data->id_contrato);
         /*
         $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
@@ -156,15 +156,15 @@ class AdministradoresResource extends AbstractResourceListener
         // atualiza os dados
         $this->administradores->__set('nome', $data->nome);
         $this->administradores->__set('tipo', $data->nome);
-        $this->administradores->__set('id_Contrato', $data->id_contrato);
+        $this->administradores->__set('id_contrato', $data->id_contrato);
         $this->administradores->__set('id',$id);
 
         $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->administradores->__get('nome'));
         $stmt->bindValue(2,$this->administradores->__get('tipo'));
-        $stmt->bindValue(3,$this->administradores->__get(id_Contrato));
-        $stmt->bindValue(4,$this->administradores->__get(id));
+        $stmt->bindValue(3,$this->administradores->__get('id_contrato'));
+        $stmt->bindValue(4,$this->administradores->__get('id'));
 
         return $stmt->execute();
     }

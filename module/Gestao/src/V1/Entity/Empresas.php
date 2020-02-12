@@ -23,12 +23,12 @@ class Empresas
      *
      * @var string @ORM\Column(name="razao_social", type="string", length=255, nullable=true)
      */
-    private $razao_Social;
+    private $razao_social;
     /**
      *
      * @var string @ORM\Column(name="nome_fantasia", type="string", length=255, nullable=true)
      */
-    private $nome_Fantasia;
+    private $nome_fantasia;
     /**
      *
      * @var string @ORM\Column(name="cnpj", unique=true, type="string", length=255, nullable=true)
@@ -38,7 +38,7 @@ class Empresas
      *
      * @var string @ORM\Column(name="inscricao_estadual", type="string", length=50, nullable=true)
      */
-    private $inscricao_Estadual;
+    private $inscricao_estadual;
     /**
      *
      * @var string @ORM\Column(name="telefone", type="string", length=15, nullable=true)
@@ -58,23 +58,26 @@ class Empresas
      *
      * @var string @ORM\Column(name="ramo_atividade", type="string", length=255, nullable=true)
      */
-    private $ramo_Atividades;
+    private $ramo_atividades;
     /**
      *
      * @var string @ORM\Column(name="natureza_juridica", type="string", length=200, nullable=true)
      */
-    private $natureza_Juridica;
+    private $natureza_juridica;
 
-    // varias empresas podem ser gerida por um usuario
-    /**
+     /**
+     * @var Usuarios
+     *
      * @ORM\ManyToOne(targetEntity="Usuarios")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\Column(type="integer")
      */
     private $id_usuario;
     /**
      *
      * @var string @ORM\Column(name="capital_social", type="integer", nullable=true)
      */
-    private $capital_Social;
+    private $capital_social;
     /**
      *
      * @var string @ORM\Column(name="cep", type="string", length=20, nullable=true)
@@ -82,9 +85,9 @@ class Empresas
     private $cep;
     /**
      *
-     * @var string @ORM\Column(name="logadouro", type="string", length=200, nullable=true)
+     * @var string @ORM\Column(name="logradouro", type="string", length=200, nullable=true)
      */
-    private $logadouro;
+    private $logradouro;
     /**
      *
      * @var string @ORM\Column(name="complemento", type="string", length=200, nullable=true)

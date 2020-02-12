@@ -36,12 +36,6 @@ class Usuarios
      */
     private $senha;
 
-    // um usuario pode ter varias empresas
-    /**
-     * @ORM\OneToMany(targetEntity="Empresas", mappedBy="Usuarios")
-     */
-    private $empresas;
-
     public function __get($name)
     {
         return $this-> $name;
@@ -55,7 +49,7 @@ class Usuarios
     public function setSenha($senha){
         $this->senha = md5($senha);
     }
-    public function getSenha(){
+    public function getSenha(){ 
         return $this->senha; 
     }
 

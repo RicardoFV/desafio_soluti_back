@@ -2,6 +2,7 @@
 namespace Gestao\V1\Rest\Empresas;
 
 use Gestao\V1\Entity\Empresas;
+use Gestao\V1\Rest\Usuarios\UsuariosResource;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
@@ -24,38 +25,39 @@ class EmpresasResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        $this->empresas->__set('razao_Social', $data->razao_social);
-        $this->empresas->__set('nome_Fantasia', $data->nome_fantasia);
+        
+        $this->empresas->__set('razao_social', $data->razao_social);
+        $this->empresas->__set('nome_fantasia', $data->nome_fantasia);
         $this->empresas->__set('cnpj', $data->cnpj);
-        $this->empresas->__set('inscricao_Estadual', $data->inscricao_estadual);
+        $this->empresas->__set('inscricao_estadual', $data->inscricao_estadual);
         $this->empresas->__set('telefone', $data->telefone);
         $this->empresas->__set('email', $data->email);
         $this->empresas->__set('situacao', $data->situacao);
-        $this->empresas->__set('ramo_Atividades', $data->ramo_atividade);
-        $this->empresas->__set('natureza_Juridica', $data->natureza_juridica);
+        $this->empresas->__set('ramo_atividades', $data->ramo_atividade);
+        $this->empresas->__set('natureza_juridica', $data->natureza_juridica);
         $this->empresas->__set('id_usuario', $data->id_usuario);
-        $this->empresas->__set('capital_Social', $data->capital_social);
+        $this->empresas->__set('capital_social', $data->capital_social);
         $this->empresas->__set('cep', $data->cep);
-        $this->empresas->__set('logadouro', $data->logadouro);
+        $this->empresas->__set('logradouro', $data->logradouro);
         $this->empresas->__set('complemento', $data->complemento);
         $this->empresas->__set('bairro', $data->bairro);
         $this->empresas->__set('localidade', $data->localidade);
         $this->empresas->__set('uf', $data->uf);
-
+        
         /*
         $query ="insert into empresas(razao_social, nome_fantasia, cnpj, inscricao_estadual, telefone,email, situacao, ramo_atividade, natureza_juridica,id_usuario_id, capital_social,cep,logadouro, complemento, bairro, localidade,uf ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->empresas->__get('razao_Social'));
-        $stmt->bindValue(2,$this->empresas->__get('nome_Fantasia'));
+        $stmt->bindValue(1,$this->empresas->__get('razao_social'));
+        $stmt->bindValue(2,$this->empresas->__get('nome_fantasia'));
         $stmt->bindValue(3,$this->empresas->__get('email'));
         $stmt->bindValue(4,$this->empresas->__get('inscricao_Estadual'));
         $stmt->bindValue(5,$this->empresas->__get('telefone'));
         $stmt->bindValue(6,$this->empresas->__get('email'));
         $stmt->bindValue(7,$this->empresas->__get('situacao'));
-        $stmt->bindValue(8,$this->empresas->__get('ramo_Atividades'));
+        $stmt->bindValue(8,$this->empresas->__get('ramo_atividades'));
         $stmt->bindValue(9,$this->empresas->__get('natureza_Juridica'));
         $stmt->bindValue(10,$this->empresas->__get('id_usuario'));
-        $stmt->bindValue(11,$this->empresas->__get('capital_Social'));
+        $stmt->bindValue(11,$this->empresas->__get('capital_social'));
         $stmt->bindValue(12,$this->empresas->__get('cep'));
         $stmt->bindValue(13,$this->empresas->__get('logadouro'));
         $stmt->bindValue(14,$this->empresas->__get('complemento'));
@@ -65,10 +67,11 @@ class EmpresasResource extends AbstractResourceListener
 
         return $stmt->execute();
         */
-
+        
         // insere um nova empresa
         $this->em->persist($this->empresas);
         $this->em->flush();
+        
     }
 
     /**
@@ -184,19 +187,19 @@ class EmpresasResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        $this->empresas->__set('razao_Social', $data->razao_social);
-        $this->empresas->__set('nome_Fantasia', $data->nome_fantasia);
+        $this->empresas->__set('razao_social', $data->razao_social);
+        $this->empresas->__set('nome_fantasia', $data->nome_fantasia);
         $this->empresas->__set('cnpj', $data->cnpj);
-        $this->empresas->__set('inscricao_Estadual', $data->inscricao_estadual);
+        $this->empresas->__set('inscricao_estadual', $data->inscricao_estadual);
         $this->empresas->__set('telefone', $data->telefone);
         $this->empresas->__set('email', $data->email);
         $this->empresas->__set('situacao', $data->situacao);
-        $this->empresas->__set('ramo_Atividades', $data->ramo_atividade);
-        $this->empresas->__set('natureza_Juridica', $data->natureza_juridica);
+        $this->empresas->__set('ramo_atividades', $data->ramo_atividade);
+        $this->empresas->__set('natureza_juridica', $data->natureza_juridica);
         $this->empresas->__set('id_usuario', $data->id_usuario);
-        $this->empresas->__set('capital_Social', $data->capital_social);
+        $this->empresas->__set('capital_social', $data->capital_social);
         $this->empresas->__set('cep', $data->cep);
-        $this->empresas->__set('logadouro', $data->logadouro);
+        $this->empresas->__set('logradouro', $data->logradouro);
         $this->empresas->__set('complemento', $data->complemento);
         $this->empresas->__set('bairro', $data->bairro);
         $this->empresas->__set('localidade', $data->localidade);
@@ -206,19 +209,19 @@ class EmpresasResource extends AbstractResourceListener
 
         $query ="insert into empresas(razao_social, nome_fantasia, cnpj, inscricao_estadual, telefone,email, situacao, ramo_atividade, natureza_juridica,id_usuario_id, capital_social,cep,logadouro, complemento, bairro, localidade,uf ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->empresas->__get('razao_Social'));
-        $stmt->bindValue(2,$this->empresas->__get('nome_Fantasia'));
+        $stmt->bindValue(1,$this->empresas->__get('razao_social'));
+        $stmt->bindValue(2,$this->empresas->__get('nome_fantasia'));
         $stmt->bindValue(3,$this->empresas->__get('email'));
-        $stmt->bindValue(4,$this->empresas->__get('inscricao_Estadual'));
+        $stmt->bindValue(4,$this->empresas->__get('inscricao_estadual'));
         $stmt->bindValue(5,$this->empresas->__get('telefone'));
         $stmt->bindValue(6,$this->empresas->__get('email'));
         $stmt->bindValue(7,$this->empresas->__get('situacao'));
-        $stmt->bindValue(8,$this->empresas->__get('ramo_Atividades'));
-        $stmt->bindValue(9,$this->empresas->__get('natureza_Juridica'));
+        $stmt->bindValue(8,$this->empresas->__get('ramo_atividades'));
+        $stmt->bindValue(9,$this->empresas->__get('natureza_juridica'));
         $stmt->bindValue(10,$this->empresas->__get('id_usuario'));
-        $stmt->bindValue(11,$this->empresas->__get('capital_Social'));
+        $stmt->bindValue(11,$this->empresas->__get('capital_social'));
         $stmt->bindValue(12,$this->empresas->__get('cep'));
-        $stmt->bindValue(13,$this->empresas->__get('logadouro'));
+        $stmt->bindValue(13,$this->empresas->__get('logradouro'));
         $stmt->bindValue(14,$this->empresas->__get('complemento'));
         $stmt->bindValue(15,$this->empresas->__get('bairro'));
         $stmt->bindValue(16,$this->empresas->__get('localidade'));

@@ -22,7 +22,7 @@ class Contratos
      *
      * @var string @ORM\Column(name="caminho_arquivo", type="string", length=255, nullable=true)
      */
-    private $caminho_Arquivo;
+    private $caminho_arquivo;
     /**
      *
      * @var string @ORM\Column(name="situacao", type="string", length=50, nullable=true)
@@ -33,16 +33,15 @@ class Contratos
      * @ORM\Column(type="datetime", name="data_anexo", columnDefinition="timestamp default current_timestamp")
      */
     private $data_Anexo;
-    // um contrato pertence a apenas ha uma empresa
     /**
-     * @ORM\OneToOne(targetEntity="Empresas")
+     * @var Empresas
+     *
+     * @ORM\ManyToOne(targetEntity="Empresas")
+     * @ORM\JoinColumn(name="id_empresa", referencedColumnName="id")
+     * @ORM\Column(type="integer")
      */
     private $id_empresa;
-    // um adminstrador pode ser vinculado a varios contratos
-    /**
-     * @ORM\OneToMany(targetEntity="Administradores", mappedBy="Contratos")
-     */
-    private $administradores;
+
 
     // Metodos magicos
     public function __set($name, $value)
