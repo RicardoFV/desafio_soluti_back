@@ -56,6 +56,7 @@ return array(
     'ZF\\ComposerAutoloading\\' => array($vendorDir . '/zfcampus/zf-composer-autoloading/src'),
     'ZF\\AssetManager\\' => array($vendorDir . '/zfcampus/zf-asset-manager/src'),
     'ZF\\Apigility\\Provider\\' => array($vendorDir . '/zfcampus/zf-apigility-provider/src'),
+    'ZF\\Apigility\\Documentation\\Swagger\\' => array($vendorDir . '/zfcampus/zf-apigility-documentation-swagger/src'),
     'ZF\\Apigility\\Documentation\\' => array($vendorDir . '/zfcampus/zf-apigility-documentation/src'),
     'ZF\\Apigility\\Doctrine\\' => array($vendorDir . '/zfcampus/zf-apigility-doctrine/src'),
     'ZF\\Apigility\\Admin\\' => array($vendorDir . '/zfcampus/zf-apigility-admin/src'),

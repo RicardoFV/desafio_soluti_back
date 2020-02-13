@@ -32,6 +32,7 @@ return [
     'ZF\\Apigility\\Doctrine\\Server',
     'DoctrineORMModule',
     'ZfrCors',
+    'ZF\Apigility\Documentation\Swagger',
     'Application',
     'Gestao',
 ];

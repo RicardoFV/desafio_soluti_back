@@ -77,6 +77,7 @@ class ComposerStaticInit0e38703919d4899b1187940c2977b851
             'ZF\\ComposerAutoloading\\' => 23,
             'ZF\\AssetManager\\' => 16,
             'ZF\\Apigility\\Provider\\' => 22,
+            'ZF\\Apigility\\Documentation\\Swagger\\' => 35,
             'ZF\\Apigility\\Documentation\\' => 27,
             'ZF\\Apigility\\Doctrine\\' => 22,
             'ZF\\Apigility\\Admin\\' => 19,
@@ -342,6 +343,10 @@ class ComposerStaticInit0e38703919d4899b1187940c2977b851
         'ZF\\Apigility\\Provider\\' => 
         array (
             0 => __DIR__ . '/..' . '/zfcampus/zf-apigility-provider/src',
+        ),
+        'ZF\\Apigility\\Documentation\\Swagger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-apigility-documentation-swagger/src',
         ),
         'ZF\\Apigility\\Documentation\\' => 
         array (
