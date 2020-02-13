@@ -24,26 +24,24 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
-        /*
-        $arquivo = new File($data->arquivo);
-        if(isset($_FILES[$arquivo])){
+        
+        $arquivo = new File($data->caminho_arquivo);
+       // if(isset($_FILES[$arquivo])){
             date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
 
             $ext = strtolower(substr($_FILES[$arquivo]['name'],-4)); //Pegando extensão do arquivo
             $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
-            $dir = './Contratos'; //Diretório para uploads
+            $dir = '../Contratos'; //Diretório para uploads
       
             move_uploaded_file($_FILES[$arquivo]['tmp_name'], $dir.$new_name); //Fazer upload do arquivo
-        }else{
-            echo 'nao existe ';
-        }
-        */
+     //   }
+        
 
-        $this->contratos->__set('caminho_Arquivo', $data->caminho);
+        $this->contratos->__set('caminho_arquivo', $dir);
         $this->contratos->__set('situacao', $data->situacao);
-        $this->contratos->__set('id_empresa_id', $data->id_empresa);
-
-
+        $this->contratos->__set('id_empresa', $data->id_empresa);
+        $this->contratos->__set('nome', $data->nome);
+        /*
         $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
@@ -51,7 +49,7 @@ class ContratosResource extends AbstractResourceListener
         $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
 
         return $stmt->execute();
-
+        */
         // insere um novo administradores
         $this->em->persist($this->contratos);
         $this->em->flush();

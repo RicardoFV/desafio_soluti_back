@@ -166,7 +166,7 @@ return [
         'controllers' => [
             'Gestao\\V1\\Rest\\Usuarios\\Controller' => 'Json',
             'Gestao\\V1\\Rest\\Empresas\\Controller' => 'Json',
-            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'Json',
+            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'HalJson',
             'Gestao\\V1\\Rest\\Administradores\\Controller' => 'HalJson',
         ],
         'accept_whitelist' => [
