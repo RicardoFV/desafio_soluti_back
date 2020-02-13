@@ -1,10 +1,13 @@
 <?php
 namespace Gestao\V1\Rest\Contratos;
 
-use Zend\Uri\File;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use Gestao\V1\Entity\Contratos;
+use Zend\Validator\File\MimeTyp;
+
+
+
 
 class ContratosResource extends AbstractResourceListener
 {
@@ -24,36 +27,34 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
-        
-        $arquivo = new File($data->caminho_arquivo);
-       // if(isset($_FILES[$arquivo])){
-            date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
+        // caso tenha o arquivo
+       if (isset($_FILES['file'])) {
+           date_default_timezone_set("Brazil/East");
+           $extensao = strtolower(substr($_FILES['file']['name'], -4)); //pega a extensao do arquivo
+           $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+            // prepara o arquivo
+           $diretorio =  __DIR__ . '/../../../../../../public/arquivos'; //define o diretorio para onde enviaremos o arquivo
 
-            $ext = strtolower(substr($_FILES[$arquivo]['name'],-4)); //Pegando extensão do arquivo
-            $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
-            $dir = '../Contratos'; //Diretório para uploads
-      
-            move_uploaded_file($_FILES[$arquivo]['tmp_name'], $dir.$new_name); //Fazer upload do arquivo
-     //   }
-        
+           move_uploaded_file($_FILES['file']['tmp_name'], $diretorio . $novo_nome); //efetua o upload
 
-        $this->contratos->__set('caminho_arquivo', $dir);
-        $this->contratos->__set('situacao', $data->situacao);
-        $this->contratos->__set('id_empresa', $data->id_empresa);
-        $this->contratos->__set('nome', $data->nome);
-        /*
-        $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
-        $stmt->bindValue(2,$this->contratos->__get('situacao'));
-        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
+           $this->contratos->__set('nome', $data->nome);
+           $this->contratos->__set('caminho_arquivo', $diretorio);
+           $this->contratos->__set('situacao', $data->situacao);
+           $this->contratos->__set('id_empresa', $data->id_empresa);
 
-        return $stmt->execute();
-        */
-        // insere um novo administradores
-        $this->em->persist($this->contratos);
-        $this->em->flush();
+           /*
+           $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
+           $stmt = $this->em->getConnection()->prepare($query);
+           $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
+           $stmt->bindValue(2,$this->contratos->__get('situacao'));
+           $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
 
+           return $stmt->execute();
+           */
+           // insere um novo administradores
+           $this->em->persist($this->contratos);
+           $this->em->flush();
+       }
     }
 
     /**

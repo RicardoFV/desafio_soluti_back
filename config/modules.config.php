@@ -35,4 +35,5 @@ return [
     'ZF\Apigility\Documentation\Swagger',
     'Application',
     'Gestao',
+    'ZF\Rest',
 ];

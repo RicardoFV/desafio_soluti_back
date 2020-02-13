@@ -166,7 +166,7 @@ return [
         'controllers' => [
             'Gestao\\V1\\Rest\\Usuarios\\Controller' => 'Json',
             'Gestao\\V1\\Rest\\Empresas\\Controller' => 'Json',
-            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'HalJson',
+            'Gestao\\V1\\Rest\\Contratos\\Controller' => 'Json',
             'Gestao\\V1\\Rest\\Administradores\\Controller' => 'HalJson',
         ],
         'accept_whitelist' => [
@@ -270,6 +270,29 @@ return [
                 'route_name' => 'gestao.rest.administradores',
                 'route_identifier_name' => 'administradores_id',
                 'is_collection' => true,
+            ],
+            'Gestao\\V1\\Rest\\Entity\\Usuarios' => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'gestao.rest.usuarios',
+                'route_identifier_name' => 'usuarios_id',
+                'hydrator' => \Zend\Hydrator\ArraySerializable::class,
+            ],
+        ],
+    ],
+    'zf-content-validation' => [
+        'Gestao\\V1\\Rest\\Usuarios\\Controller' => [
+            'input_filter' => 'Gestao\\V1\\Rest\\Usuarios\\Validator',
+        ],
+    ],
+    'input_filter_specs' => [
+        'Gestao\\V1\\Rest\\Usuarios\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'file',
+                'description' => 'campo responsável por fazer o upload de arquivos.',
+                'type' => \Zend\InputFilter\FileInput::class,
             ],
         ],
     ],

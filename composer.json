@@ -37,7 +37,8 @@
         "doctrine/doctrine-orm-module": "^1.1",
         "zendframework/zend-mvc-console": "^1.2",
         "zfr/zfr-cors": "1.*",
-        "zfcampus/zf-apigility-documentation-swagger": "~1.0-dev"
+        "zfcampus/zf-apigility-documentation-swagger": "~1.0-dev",
+        "zfcampus/zf-rest": "^1.5"
     },
     "require-dev": {
         "zendframework/zend-developer-tools": "^1.2.1",
