@@ -25,7 +25,7 @@ class AdministradoresResource extends AbstractResourceListener
     {
 
         $this->administradores->__set('nome', $data->nome);
-        $this->administradores->__set('tipo', $data->nome);
+        $this->administradores->__set('tipo', $data->tipo);
         $this->administradores->__set('id_contrato', $data->id_contrato);
         /*
         $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";

@@ -27,18 +27,20 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
+
         // caso tenha o arquivo
-       if (isset($_FILES['file'])) {
+       if (isset($_FILES[$data->caminho_arquivo])) {
            date_default_timezone_set("Brazil/East");
-           $extensao = strtolower(substr($_FILES['file']['name'], -4)); //pega a extensao do arquivo
+           $extensao = strtolower(substr($_FILES[$data->caminho_arquivo]['name'], -4)); //pega a extensao do arquivo
            $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
-            // prepara o arquivo
-           $diretorio =  __DIR__ . '/../../../../../../public/arquivos'; //define o diretorio para onde enviaremos o arquivo
+           // prepara o arquivo
+           $diretorio = 'C:\Projetos\Desafio_Soluti\desafio_soluti_back\module\Gestao\src\V1\Rest\Contratos\arquivos'; //define o diretorio para onde enviaremos o arquivo
+           // $diretorio =  __DIR__ . '/../../../../../../public/arquivos'; //define o diretorio para onde enviaremos o arquivo
 
-           move_uploaded_file($_FILES['file']['tmp_name'], $diretorio . $novo_nome); //efetua o upload
-
+           move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
+       }
            $this->contratos->__set('nome', $data->nome);
-           $this->contratos->__set('caminho_arquivo', $diretorio);
+           $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
            $this->contratos->__set('situacao', $data->situacao);
            $this->contratos->__set('id_empresa', $data->id_empresa);
 
@@ -54,7 +56,7 @@ class ContratosResource extends AbstractResourceListener
            // insere um novo administradores
            $this->em->persist($this->contratos);
            $this->em->flush();
-       }
+
     }
 
     /**

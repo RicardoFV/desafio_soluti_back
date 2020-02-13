@@ -287,11 +287,11 @@ return [
     'input_filter_specs' => [
         'Gestao\\V1\\Rest\\Usuarios\\Validator' => [
             0 => [
-                'required' => true,
+                'required' => false,
                 'validators' => [],
                 'filters' => [],
                 'name' => 'file',
-                'description' => 'campo responsável por fazer o upload de arquivos.',
+                'description' => 'campo de upload',
                 'type' => \Zend\InputFilter\FileInput::class,
             ],
         ],
