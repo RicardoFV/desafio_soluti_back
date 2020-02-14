@@ -28,6 +28,7 @@ class ContratosResource extends AbstractResourceListener
     public function create($data)
     {
 
+        /*
         // caso tenha o arquivo
        if (isset($_FILES[$data->caminho_arquivo])) {
            date_default_timezone_set("Brazil/East");
@@ -39,6 +40,7 @@ class ContratosResource extends AbstractResourceListener
 
            move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
        }
+        */
            $this->contratos->__set('nome', $data->nome);
            $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
            $this->contratos->__set('situacao', $data->situacao);
