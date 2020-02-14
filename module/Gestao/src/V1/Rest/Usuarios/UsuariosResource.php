@@ -155,13 +155,34 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
+
+        $resposta = $this->em->getRepository(Usuarios::class);
+        $user = $resposta->find($id);
+
+        if($user){
+
+            print_r($user);
+            // atualiza os dados
+            $user->__set('nome_Completo',$data->nome_completo);
+            $user->__set('email',$data->email);
+            $user->setSenha($data->senha);
+        }else{
+            echo 'erro ao alterar usuário !';
+        }
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        /*
         // atualiza os dados
         $this->usuario->__set('nome_Completo',$data->nome_completo);
         $this->usuario->__set('email',$data->email);
         $this->usuario->setSenha($data->senha);
         $this->usuario->__set('id',$id);
 
-        $query ="update usuarios set nome_completo=?, senha=?, email=? where id = ?";
+        print_r($this->usuario);
+
+        $query ="update usuarios set nome_completo = ?, senha = ?, email = ? where id = ?";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
         $stmt->bindValue(2,$this->usuario->getSenha());
@@ -169,5 +190,6 @@ class UsuariosResource extends AbstractResourceListener
         $stmt->bindValue(4,$this->usuario->__get('id'));
 
         return $stmt->execute();
+        */
     }
 }
