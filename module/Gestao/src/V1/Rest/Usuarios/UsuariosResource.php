@@ -22,10 +22,17 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function create($data)
     {
+        if ($data){
+            $this->usuario->__set('nome_Completo',$data->nome_completo);
+            $this->usuario->__set('email',$data->email);
+            $this->usuario->setSenha($data->senha);
 
-        $this->usuario->__set('nome_Completo',$data->nome_completo);
-        $this->usuario->__set('email',$data->email);
-        $this->usuario->setSenha($data->senha);
+            // insere um novo usuario
+            $this->em->persist($this->usuario);
+            $this->em->flush();
+        }else{
+            echo "erro ao inserir registro";
+        }
 
         /*
         $query ="insert into usuarios(nome_completo, senha, email) values(?,?,?)";
@@ -36,9 +43,6 @@ class UsuariosResource extends AbstractResourceListener
 
         return $stmt->execute();
         */
-        // insere um novo usuario
-        $this->em->persist($this->usuario);
-        $this->em->flush();
 
     }
 
@@ -155,23 +159,21 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-
         $resposta = $this->em->getRepository(Usuarios::class);
         $user = $resposta->find($id);
 
         if($user){
 
-            print_r($user);
             // atualiza os dados
             $user->__set('nome_Completo',$data->nome_completo);
             $user->__set('email',$data->email);
             $user->setSenha($data->senha);
+
+            $this->em->persist($user);
+            $this->em->flush();
         }else{
             echo 'erro ao alterar usuário !';
         }
-
-        $this->em->persist($user);
-        $this->em->flush();
 
         /*
         // atualiza os dados

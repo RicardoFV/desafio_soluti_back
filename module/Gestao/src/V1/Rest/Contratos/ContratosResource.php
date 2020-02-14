@@ -27,7 +27,6 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
-
         /*
         // caso tenha o arquivo
        if (isset($_FILES[$data->caminho_arquivo])) {
@@ -41,11 +40,18 @@ class ContratosResource extends AbstractResourceListener
            move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
        }
         */
-           $this->contratos->__set('nome', $data->nome);
-           $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
-           $this->contratos->__set('situacao', $data->situacao);
-           $this->contratos->__set('id_empresa', $data->id_empresa);
+        if ($data){
+            $this->contratos->__set('nome', $data->nome);
+            $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
+            $this->contratos->__set('situacao', $data->situacao);
+            $this->contratos->__set('id_empresa', $data->id_empresa);
 
+            // insere um novo administradores
+            $this->em->persist($this->contratos);
+            $this->em->flush();
+        }else {
+            echo 'erro ao alterar Contrato !';
+        }
            /*
            $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
            $stmt = $this->em->getConnection()->prepare($query);
@@ -55,10 +61,6 @@ class ContratosResource extends AbstractResourceListener
 
            return $stmt->execute();
            */
-           // insere um novo administradores
-           $this->em->persist($this->contratos);
-           $this->em->flush();
-
     }
 
     /**
@@ -173,6 +175,20 @@ class ContratosResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
+        $resposta = $this->em->getRepository(Contratos::class);
+        $cont = $resposta->find(id);
+
+        if ($cont){
+            $cont->__set('caminho_Arquivo', $data->caminho);
+            $cont->__set('situacao', $data->situacao);
+            $cont->__set('id_empresa', $data->id_empresa);
+
+            $this->em->persist($cont);
+            $this->em->flush();
+        }else {
+            echo 'erro ao alterar Empresa !';
+        }
+        /*
         // atualiza os dados
         $this->contratos->__set('caminho_Arquivo', $data->caminho);
         $this->contratos->__set('situacao', $data->situacao);
@@ -187,5 +203,6 @@ class ContratosResource extends AbstractResourceListener
         $stmt->bindValue(4,$this->contratos->__get('id'));
 
         return $stmt->execute();
+        */
     }
 }

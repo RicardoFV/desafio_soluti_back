@@ -25,25 +25,32 @@ class EmpresasResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        
-        $this->empresas->__set('razao_social', $data->razao_social);
-        $this->empresas->__set('nome_fantasia', $data->nome_fantasia);
-        $this->empresas->__set('cnpj', $data->cnpj);
-        $this->empresas->__set('inscricao_estadual', $data->inscricao_estadual);
-        $this->empresas->__set('telefone', $data->telefone);
-        $this->empresas->__set('email', $data->email);
-        $this->empresas->__set('situacao', $data->situacao);
-        $this->empresas->__set('ramo_atividades', $data->ramo_atividade);
-        $this->empresas->__set('natureza_juridica', $data->natureza_juridica);
-        $this->empresas->__set('id_usuario', $data->id_usuario);
-        $this->empresas->__set('capital_social', $data->capital_social);
-        $this->empresas->__set('cep', $data->cep);
-        $this->empresas->__set('logradouro', $data->logradouro);
-        $this->empresas->__set('complemento', $data->complemento);
-        $this->empresas->__set('bairro', $data->bairro);
-        $this->empresas->__set('localidade', $data->localidade);
-        $this->empresas->__set('uf', $data->uf);
-        
+        if ($data){
+            $this->empresas->__set('razao_social', $data->razao_social);
+            $this->empresas->__set('nome_fantasia', $data->nome_fantasia);
+            $this->empresas->__set('cnpj', $data->cnpj);
+            $this->empresas->__set('inscricao_estadual', $data->inscricao_estadual);
+            $this->empresas->__set('telefone', $data->telefone);
+            $this->empresas->__set('email', $data->email);
+            $this->empresas->__set('situacao', $data->situacao);
+            $this->empresas->__set('ramo_atividades', $data->ramo_atividade);
+            $this->empresas->__set('natureza_juridica', $data->natureza_juridica);
+            $this->empresas->__set('id_usuario', $data->id_usuario);
+            $this->empresas->__set('capital_social', $data->capital_social);
+            $this->empresas->__set('cep', $data->cep);
+            $this->empresas->__set('logradouro', $data->logradouro);
+            $this->empresas->__set('complemento', $data->complemento);
+            $this->empresas->__set('bairro', $data->bairro);
+            $this->empresas->__set('localidade', $data->localidade);
+            $this->empresas->__set('uf', $data->uf);
+
+            // insere um nova empresa
+            $this->em->persist($this->empresas);
+            $this->em->flush();
+        }else {
+                echo "erro ao inserir registro";
+        }
+
         /*
         $query ="insert into empresas(razao_social, nome_fantasia, cnpj, inscricao_estadual, telefone,email, situacao, ramo_atividade, natureza_juridica,id_usuario_id, capital_social,cep,logadouro, complemento, bairro, localidade,uf ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
@@ -67,10 +74,6 @@ class EmpresasResource extends AbstractResourceListener
 
         return $stmt->execute();
         */
-        
-        // insere um nova empresa
-        $this->em->persist($this->empresas);
-        $this->em->flush();
         
     }
 
@@ -187,6 +190,36 @@ class EmpresasResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
+        $resposta = $this->em->getRepository(Empresas::class);
+        $empr = $resposta->find($id);
+
+        if($empr){
+            $empr->__set('razao_social', $data->razao_social);
+            $empr->__set('nome_fantasia', $data->nome_fantasia);
+            $empr->__set('cnpj', $data->cnpj);
+            $empr->__set('inscricao_estadual', $data->inscricao_estadual);
+            $empr->__set('telefone', $data->telefone);
+            $empr->__set('email', $data->email);
+            $empr->__set('situacao', $data->situacao);
+            $empr->__set('ramo_atividades', $data->ramo_atividade);
+            $empr->__set('natureza_juridica', $data->natureza_juridica);
+            $empr->__set('id_usuario', $data->id_usuario);
+            $empr->__set('capital_social', $data->capital_social);
+            $empr->__set('cep', $data->cep);
+            $empr->__set('logradouro', $data->logradouro);
+            $empr->__set('complemento', $data->complemento);
+            $empr->__set('bairro', $data->bairro);
+            $empr->__set('localidade', $data->localidade);
+            $empr->__set('uf', $data->uf);
+
+            $this->em->persist($empr);
+            $this->em->flush();
+        }else {
+            echo 'erro ao alterar Empresa !';
+        }
+
+        /*
+        codigo sql padrao
         $this->empresas->__set('razao_social', $data->razao_social);
         $this->empresas->__set('nome_fantasia', $data->nome_fantasia);
         $this->empresas->__set('cnpj', $data->cnpj);
@@ -204,7 +237,7 @@ class EmpresasResource extends AbstractResourceListener
         $this->empresas->__set('bairro', $data->bairro);
         $this->empresas->__set('localidade', $data->localidade);
         $this->empresas->__set('uf', $data->uf);
-        $this->empresas->__set('id', $data->id);
+        $this->empresas->__set('id', $id);
 
 
         $query ="insert into empresas(razao_social, nome_fantasia, cnpj, inscricao_estadual, telefone,email, situacao, ramo_atividade, natureza_juridica,id_usuario_id, capital_social,cep,logadouro, complemento, bairro, localidade,uf ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -229,6 +262,6 @@ class EmpresasResource extends AbstractResourceListener
         $stmt->bindValue(18,$this->empresas->__get('id'));
 
         return $stmt->execute();
-
+         */
     }
 }

@@ -23,10 +23,18 @@ class AdministradoresResource extends AbstractResourceListener
 
     public function create($data)
     {
+        if ($data){
+            $this->administradores->__set('nome', $data->nome);
+            $this->administradores->__set('tipo', $data->tipo);
+            $this->administradores->__set('id_contrato', $data->id_contrato);
 
-        $this->administradores->__set('nome', $data->nome);
-        $this->administradores->__set('tipo', $data->tipo);
-        $this->administradores->__set('id_contrato', $data->id_contrato);
+            // insere um novo usuario
+            $this->em->persist($this->administradores);
+            $this->em->flush();
+        }else {
+            echo "erro ao inserir registro";
+        }
+
         /*
         $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
@@ -36,9 +44,6 @@ class AdministradoresResource extends AbstractResourceListener
 
         return $stmt->execute();
         */
-        // insere um novo usuario
-        $this->em->persist($this->administradores);
-        $this->em->flush();
     }
 
     /**
@@ -153,13 +158,26 @@ class AdministradoresResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
+        $resposta = $this->em->getRepository(Administradores::class);
+        $adm = $resposta->find($id);
+
+        if ($adm){
+            $adm->__set('nome', $data->nome);
+            $adm->__set('tipo', $data->nome);
+            $adm->__set('id_contrato', $data->id_contrato);
+
+            $this->em->persist($adm);
+            $this->em->flush();
+        }
+
+        /*
         // atualiza os dados
         $this->administradores->__set('nome', $data->nome);
         $this->administradores->__set('tipo', $data->nome);
         $this->administradores->__set('id_contrato', $data->id_contrato);
         $this->administradores->__set('id',$id);
 
-        $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";
+        $query = "insert into administradores(nome, tipo, id_Contrato) values(?,?,?)";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1,$this->administradores->__get('nome'));
         $stmt->bindValue(2,$this->administradores->__get('tipo'));
@@ -167,5 +185,6 @@ class AdministradoresResource extends AbstractResourceListener
         $stmt->bindValue(4,$this->administradores->__get('id'));
 
         return $stmt->execute();
+        */
     }
 }
