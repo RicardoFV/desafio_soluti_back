@@ -212,6 +212,7 @@ class EmpresasResource extends AbstractResourceListener
             $empr->__set('bairro', $data->bairro);
             $empr->__set('localidade', $data->localidade);
             $empr->__set('uf', $data->uf);
+            $empr->setDataAbertura($data->data_abertura);
 
             $this->em->persist($empr);
             $this->em->flush();
