@@ -43,6 +43,7 @@ class EmpresasResource extends AbstractResourceListener
             $this->empresas->__set('bairro', $data->bairro);
             $this->empresas->__set('localidade', $data->localidade);
             $this->empresas->__set('uf', $data->uf);
+            $this->empresas->setDataAbertura($data->data_abertura);
 
             // insere um nova empresa
             $this->em->persist($this->empresas);

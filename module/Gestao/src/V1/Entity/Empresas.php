@@ -109,6 +109,12 @@ class Empresas
      */
     private $uf;
 
+    /**
+     *
+     * @var string @ORM\Column(name="data_abertura", type="datetime",length=25 ,nullable=true)
+     */
+    private $data_abertura;
+
 
     // Metodos magicos
     public function __set($name, $value)
@@ -120,5 +126,24 @@ class Empresas
     {
         return $this-> $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getDataAbertura()
+    {
+        return $this->data_abertura->format("d-m-Y");;
+    }
+
+    /**
+     * @param string $data_abertura
+     */
+    public function setDataAbertura($data_abertura)
+    {
+        $data = new \DateTime($data_abertura);
+        $this->data_abertura = $data;
+    }
+
+
 
 }
