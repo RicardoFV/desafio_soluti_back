@@ -23,6 +23,7 @@ class AdministradoresResource extends AbstractResourceListener
 
     public function create($data)
     {
+
         if ($data){
             $this->administradores->__set('nome', $data->nome);
             $this->administradores->__set('tipo', $data->tipo);

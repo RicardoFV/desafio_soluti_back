@@ -127,16 +127,10 @@ class ContratosResource extends AbstractResourceListener
          // vinculado aos seus administradores
         // ordenada por nome do administrador
 
-            $query = "SELECT c.nome as nome_contrato, c.situacao,
-            e.razao_social, e.cnpj, e.telefone, e.email,
-            adm.nome as nome_administrador
-            FROM contratos as c INNER JOIN empresas as e, contratos contadm JOIN administradores as adm
-            WHERE c.situacao ='pendente'
-            AND c.id_empresa = e.id
-            AND adm.id_contrato = contadm.id order by adm.nome";
+            $query = "select * from contratos";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
-        return  $stmt->fetchAll(\PDO::FETCH_OBJ);
+        return $stmt->fetchAll();
     }
 
     /**
