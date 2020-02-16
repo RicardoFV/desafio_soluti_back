@@ -1,6 +1,10 @@
 <?php
 namespace Gestao\V1\Rest\Contratos;
 
+use Zend\Filter\File\RenameUpload;
+use Zend\InputFilter\FileInput;
+use Zend\Validator\File\MimeType;
+use Zend\Validator\File\Size;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use Gestao\V1\Entity\Contratos;
@@ -24,6 +28,34 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
+
+
+        /*
+        $attachment = new FileInput('arquivo');
+        $attachment->setRequired(false);
+        $attachment->getValidatorChain()->addValidator(new Size(['max' => '5MB']));
+        $attachment->getValidatorChain()->addValidator(new MimeType(['pdf']));
+        $attachment->getFilterChain()->attach(new RenameUpload(
+           [
+               'target' => __DIR__.'/../../../../../public/arquivos',
+               'use_upload_name'      => false,
+               'use_upload_extension' => true,
+               'overwrite'            => true,
+               'randomize'            => true,
+           ]
+        ));
+        */
+
+       $inputFilter = $this->getInputFilter();
+       $data = $inputFilter->getValues('arquivo');
+
+
+
+        $extensao = $data['arquivo']['name'];
+        $novo_nome = md5(time()).$extensao;
+        $novo_caminho = __DIR__ . '../arquivos';
+
+        move_uploaded_file($data['arquivo']['tmp_name'], $novo_caminho .$novo_nome);
         /*
         // caso tenha o arquivo
        if (isset($_FILES[$data->caminho_arquivo])) {
@@ -36,7 +68,7 @@ class ContratosResource extends AbstractResourceListener
 
            move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
        }
-        */
+
         if ($data) {
             $this->contratos->__set('nome', $data->nome);
             $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
@@ -49,6 +81,7 @@ class ContratosResource extends AbstractResourceListener
         } else {
             echo 'erro ao alterar Contrato !';
         }
+        */
         /*
         $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
         $stmt = $this->em->getConnection()->prepare($query);

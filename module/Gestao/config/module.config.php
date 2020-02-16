@@ -283,6 +283,9 @@ return [
         'Gestao\\V1\\Rest\\Usuarios\\Controller' => [
             'input_filter' => 'Gestao\\V1\\Rest\\Usuarios\\Validator',
         ],
+        'Gestao\\V1\\Rest\\Contratos\\Controller' => [
+            'input_filter' => 'Gestao\\V1\\Rest\\Contratos\\Validator',
+        ],
     ],
     'input_filter_specs' => [
         'Gestao\\V1\\Rest\\Usuarios\\Validator' => [
@@ -293,6 +296,16 @@ return [
                 'name' => 'file',
                 'description' => 'campo de upload',
                 'type' => \Zend\InputFilter\FileInput::class,
+            ],
+        ],
+        'Gestao\\V1\\Rest\\Contratos\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'arquivo',
+                'type' => \Zend\InputFilter\FileInput::class,
+                'field_type' => 'upload de documentos',
             ],
         ],
     ],
