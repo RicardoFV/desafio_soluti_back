@@ -10,6 +10,7 @@
 
 Para que consiga executar esse projeto após clonagem , é nessecário que crie uma classe para configuração do banco de dados, acesando o config, dentro da pasta autoload, nela deverá ser criado um arquivo chamado doctrine.local.php.
 
+```
 'doctrine' => [
         'connection' => [
             'orm_default' => [
@@ -26,7 +27,7 @@ Para que consiga executar esse projeto após clonagem , é nessecário que crie 
             ]
         ]
     ]
-
+````
 Nesse arquivo devera ser colocado as configurações do banco , que nesse caso foi utilizado o "phpMyAdmin". 
 
 Apos a devida configuração, deverá ser execuado o comando para a criação das tabelas. 
