@@ -6,9 +6,6 @@ use ZF\Rest\AbstractResourceListener;
 use Gestao\V1\Entity\Contratos;
 use Zend\Validator\File\MimeTyp;
 
-
-
-
 class ContratosResource extends AbstractResourceListener
 {
     private $em;
@@ -40,7 +37,7 @@ class ContratosResource extends AbstractResourceListener
            move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
        }
         */
-        if ($data){
+        if ($data) {
             $this->contratos->__set('nome', $data->nome);
             $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
             $this->contratos->__set('situacao', $data->situacao);
@@ -49,18 +46,18 @@ class ContratosResource extends AbstractResourceListener
             // insere um novo administradores
             $this->em->persist($this->contratos);
             $this->em->flush();
-        }else {
+        } else {
             echo 'erro ao alterar Contrato !';
         }
-           /*
-           $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
-           $stmt = $this->em->getConnection()->prepare($query);
-           $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
-           $stmt->bindValue(2,$this->contratos->__get('situacao'));
-           $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
+        /*
+        $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
+        $stmt = $this->em->getConnection()->prepare($query);
+        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
+        $stmt->bindValue(2,$this->contratos->__get('situacao'));
+        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
 
-           return $stmt->execute();
-           */
+        return $stmt->execute();
+        */
     }
 
     /**
@@ -80,11 +77,11 @@ class ContratosResource extends AbstractResourceListener
         // deleta contratos por id
         $data = $this->em->getRepository(Contratos::class);
         $contrato = $data->find($id);
-        if ($contrato){
+        if ($contrato) {
             $this->em->remove($contrato);
             $this->em->flush();
             echo 'Contrato removido com sucesso';
-        }else{
+        } else {
             echo 'Contrato não encontrado, ou não existe';
         }
     }
@@ -125,8 +122,18 @@ class ContratosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        // busca todos os contratos e retorna uma coletion
-        $query = "select * from contratos";
+        // busca os contratos que estão vinculado a cada Empresa,
+         // que estão com o status Pendente,
+         // vinculado aos seus administradores
+        // ordenada por nome do administrador
+
+            $query = "SELECT c.nome as nome_contrato, c.situacao,
+            e.razao_social, e.cnpj, e.telefone, e.email,
+            adm.nome as nome_administrador
+            FROM contratos as c INNER JOIN empresas as e, contratos contadm JOIN administradores as adm
+            WHERE c.situacao ='pendente'
+            AND c.id_empresa = e.id
+            AND adm.id_contrato = contadm.id order by adm.nome";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return  $stmt->fetchAll(\PDO::FETCH_OBJ);
@@ -178,14 +185,14 @@ class ContratosResource extends AbstractResourceListener
         $resposta = $this->em->getRepository(Contratos::class);
         $cont = $resposta->find(id);
 
-        if ($cont){
+        if ($cont) {
             $cont->__set('caminho_Arquivo', $data->caminho);
             $cont->__set('situacao', $data->situacao);
             $cont->__set('id_empresa', $data->id_empresa);
 
             $this->em->persist($cont);
             $this->em->flush();
-        }else {
+        } else {
             echo 'erro ao alterar Empresa !';
         }
         /*
@@ -205,4 +212,5 @@ class ContratosResource extends AbstractResourceListener
         return $stmt->execute();
         */
     }
+
 }

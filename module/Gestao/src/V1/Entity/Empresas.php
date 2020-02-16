@@ -135,11 +135,9 @@ class Empresas
         return $this->data_abertura->format("d-m-Y");;
     }
 
-    /**
-     * @param string $data_abertura
-     */
     public function setDataAbertura($data_abertura)
     {
+        // recebe a informaçao de data vinda do front e já faz a conversão
         $data = new \DateTime($data_abertura);
         $this->data_abertura = $data;
     }
