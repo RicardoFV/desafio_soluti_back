@@ -132,7 +132,7 @@ class Empresas
      */
     public function getDataAbertura()
     {
-        return $this->data_abertura->format("d-m-Y");;
+        return $this->data_abertura->format("d-m-Y");
     }
 
     public function setDataAbertura($data_abertura)
