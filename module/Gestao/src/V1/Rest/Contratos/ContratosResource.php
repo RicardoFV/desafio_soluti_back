@@ -196,7 +196,7 @@ class ContratosResource extends AbstractResourceListener
             $cont->__set('situacao', $data->situacao);
             $cont->__set('id_empresa', $data->id_empresa);
 
-            $this->em->persist($cont);
+            $this->em->merge($cont);
             $this->em->flush();
         } else {
             echo 'erro ao alterar Empresa !';

@@ -34,16 +34,6 @@ class UsuariosResource extends AbstractResourceListener
             echo "erro ao inserir registro";
         }
 
-        /*
-        $query ="insert into usuarios(nome_completo, senha, email) values(?,?,?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
-        $stmt->bindValue(2,$this->usuario->__get('senha'));
-        $stmt->bindValue(3,$this->usuario->__get(email));
-
-        return $stmt->execute();
-        */
-
     }
 
     /**
@@ -54,12 +44,7 @@ class UsuariosResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        /*
-        $query = "delete from usuarios where id=?";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1, $id);
-        return $stmt->execute();
-        */
+
         // deleta usuario por id
         $data = $this->em->getRepository(Usuarios::class);
         $user = $data->find($id);
@@ -175,23 +160,5 @@ class UsuariosResource extends AbstractResourceListener
             echo 'erro ao alterar usuário !';
         }
 
-        /*
-        // atualiza os dados
-        $this->usuario->__set('nome_Completo',$data->nome_completo);
-        $this->usuario->__set('email',$data->email);
-        $this->usuario->setSenha($data->senha);
-        $this->usuario->__set('id',$id);
-
-        print_r($this->usuario);
-
-        $query ="update usuarios set nome_completo = ?, senha = ?, email = ? where id = ?";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->usuario->__get('nome_Completo'));
-        $stmt->bindValue(2,$this->usuario->getSenha());
-        $stmt->bindValue(3,$this->usuario->__get('email'));
-        $stmt->bindValue(4,$this->usuario->__get('id'));
-
-        return $stmt->execute();
-        */
     }
 }

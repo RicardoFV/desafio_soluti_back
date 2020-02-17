@@ -35,16 +35,6 @@ class AdministradoresResource extends AbstractResourceListener
         }else {
             echo "erro ao inserir registro";
         }
-
-        /*
-        $query = "insert into administradores(nome, tipo, id_Contrato_id) values(?,?,?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->administradores->__get('nome'));
-        $stmt->bindValue(2,$this->administradores->__get('tipo'));
-        $stmt->bindValue(3,$this->administradores->__get(id_Contrato));
-
-        return $stmt->execute();
-        */
     }
 
     /**
@@ -55,13 +45,7 @@ class AdministradoresResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        /*
-        $query = "delete from administradores where id=?";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1, $id);
-        return $stmt->execute();
-        */
-        // deleta administradores por id
+    
         $data = $this->em->getRepository(Administradores::class);
         $adm = $data->find($id);
         if ($adm){
@@ -167,25 +151,8 @@ class AdministradoresResource extends AbstractResourceListener
             $adm->__set('tipo', $data->nome);
             $adm->__set('id_contrato', $data->id_contrato);
 
-            $this->em->persist($adm);
+            $this->em->merge($adm);
             $this->em->flush();
         }
-
-        /*
-        // atualiza os dados
-        $this->administradores->__set('nome', $data->nome);
-        $this->administradores->__set('tipo', $data->nome);
-        $this->administradores->__set('id_contrato', $data->id_contrato);
-        $this->administradores->__set('id',$id);
-
-        $query = "insert into administradores(nome, tipo, id_Contrato) values(?,?,?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->administradores->__get('nome'));
-        $stmt->bindValue(2,$this->administradores->__get('tipo'));
-        $stmt->bindValue(3,$this->administradores->__get('id_contrato'));
-        $stmt->bindValue(4,$this->administradores->__get('id'));
-
-        return $stmt->execute();
-        */
     }
 }
