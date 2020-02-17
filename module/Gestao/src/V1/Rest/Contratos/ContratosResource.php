@@ -28,46 +28,15 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
-
-
         /*
-        $attachment = new FileInput('arquivo');
-        $attachment->setRequired(false);
-        $attachment->getValidatorChain()->addValidator(new Size(['max' => '5MB']));
-        $attachment->getValidatorChain()->addValidator(new MimeType(['pdf']));
-        $attachment->getFilterChain()->attach(new RenameUpload(
-           [
-               'target' => __DIR__.'/../../../../../public/arquivos',
-               'use_upload_name'      => false,
-               'use_upload_extension' => true,
-               'overwrite'            => true,
-               'randomize'            => true,
-           ]
-        ));
-        */
-
        $inputFilter = $this->getInputFilter();
        $data = $inputFilter->getValues('arquivo');
-
-
-
         $extensao = $data['arquivo']['name'];
         $novo_nome = md5(time()).$extensao;
         $novo_caminho = __DIR__ . '../arquivos';
 
         move_uploaded_file($data['arquivo']['tmp_name'], $novo_caminho .$novo_nome);
-        /*
-        // caso tenha o arquivo
-       if (isset($_FILES[$data->caminho_arquivo])) {
-           date_default_timezone_set("Brazil/East");
-           $extensao = strtolower(substr($_FILES[$data->caminho_arquivo]['name'], -4)); //pega a extensao do arquivo
-           $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
-           // prepara o arquivo
-           $diretorio = 'C:\Projetos\Desafio_Soluti\desafio_soluti_back\module\Gestao\src\V1\Rest\Contratos\arquivos'; //define o diretorio para onde enviaremos o arquivo
-           // $diretorio =  __DIR__ . '/../../../../../../public/arquivos'; //define o diretorio para onde enviaremos o arquivo
-
-           move_uploaded_file($_FILES[$data->caminho_arquivo]['tmp_name'], $diretorio . $novo_nome); //efetua o upload
-       }
+        */
 
         if ($data) {
             $this->contratos->__set('nome', $data->nome);
@@ -81,7 +50,7 @@ class ContratosResource extends AbstractResourceListener
         } else {
             echo 'erro ao alterar Contrato !';
         }
-        */
+
         /*
         $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
         $stmt = $this->em->getConnection()->prepare($query);
@@ -161,16 +130,16 @@ class ContratosResource extends AbstractResourceListener
         // ordenada por nome do administrador
         /*
          *   $query = "SELECT c.nome as nome_contrato, c.situacao,
-e.razao_social, e.nome_fantasia, e.cnpj, e.telefone, e.email,
-adm.nome as nome_administrador
-FROM contratos as c INNER JOIN empresas as e, contratos contadm JOIN administradores as adm
-WHERE c.situacao ='pendente'
-AND c.id_empresa = e.id
-AND
-adm.id_contrato = contadm.id";
+                e.razao_social, e.nome_fantasia, e.cnpj, e.telefone, e.email,
+                adm.nome as nome_administrador
+                FROM contratos as c INNER JOIN empresas as e, contratos contadm JOIN administradores as adm
+                WHERE c.situacao ='pendente'
+                AND c.id_empresa = e.id
+                AND
+                adm.id_contrato = contadm.id";
          */
 
-            $query = "SELECT * from contratos";
+        $query = "SELECT * from contratos";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();

@@ -298,15 +298,6 @@ return [
                 'type' => \Zend\InputFilter\FileInput::class,
             ],
         ],
-        'Gestao\\V1\\Rest\\Contratos\\Validator' => [
-            0 => [
-                'required' => true,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'arquivo',
-                'type' => \Zend\InputFilter\FileInput::class,
-                'field_type' => 'upload de documentos',
-            ],
-        ],
+        'Gestao\\V1\\Rest\\Contratos\\Validator' => [],
     ],
 ];

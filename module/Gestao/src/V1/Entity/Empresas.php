@@ -31,7 +31,7 @@ class Empresas
     private $nome_fantasia;
     /**
      *
-     * @var string @ORM\Column(name="cnpj", unique=true, type="string", length=255, nullable=true)
+     * @var string @ORM\Column(name="cnpj", type="string", length=14, nullable=true)
      */
     private $cnpj;
     /**
