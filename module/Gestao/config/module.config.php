@@ -105,6 +105,7 @@ return [
                 1 => 'PATCH',
                 2 => 'PUT',
                 3 => 'DELETE',
+                4 => 'POST',
             ],
             'collection_http_methods' => [
                 0 => 'GET',
@@ -206,6 +207,7 @@ return [
                 0 => 'application/vnd.gestao.v1+json',
                 1 => 'application/json',
                 2 => 'multipart/form-data',
+                3 => 'application/hal+json',
             ],
             'Gestao\\V1\\Rest\\Contratos\\Controller' => [
                 0 => 'application/vnd.gestao.v1+json',
