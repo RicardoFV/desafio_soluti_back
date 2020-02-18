@@ -49,7 +49,7 @@ class EmpresasResource extends AbstractResourceListener
             $this->em->persist($this->empresas);
             $this->em->flush();
         }else {
-                echo "erro ao inserir registro";
+                return new ApiProblem( 404,"erro ao inserir registro");
         }
     }
 
@@ -69,7 +69,7 @@ class EmpresasResource extends AbstractResourceListener
             $this->em->flush();
             echo 'Empresa removido com sucesso';
         }else{
-            echo 'Empresa não encontrado, ou não existe';
+            return new ApiProblem(405, 'Empresa não encontrado, ou não existe');
         }
     }
 
@@ -185,7 +185,7 @@ class EmpresasResource extends AbstractResourceListener
             $this->em->merge($empr);
             $this->em->flush();
         }else {
-            echo 'erro ao alterar Empresa !';
+            return new ApiProblem(405, 'erro ao alterar Empresa !');
         }
 
     }

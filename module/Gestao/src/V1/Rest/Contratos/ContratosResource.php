@@ -1,10 +1,7 @@
 <?php
 namespace Gestao\V1\Rest\Contratos;
 
-use Zend\Filter\File\RenameUpload;
-use Zend\InputFilter\FileInput;
-use Zend\Validator\File\MimeType;
-use Zend\Validator\File\Size;
+use phpDocumentor\Reflection\Types\This;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 use Gestao\V1\Entity\Contratos;
@@ -28,16 +25,15 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
-        /*
        $inputFilter = $this->getInputFilter();
        $data = $inputFilter->getValues('arquivo');
         $extensao = $data['arquivo']['name'];
         $novo_nome = md5(time()).$extensao;
-        $novo_caminho = __DIR__ . '../arquivos';
+        $novo_caminho = __DIR__ . '../../../../../../public/arquivo/';
 
         move_uploaded_file($data['arquivo']['tmp_name'], $novo_caminho .$novo_nome);
-        */
 
+        /*
         if ($data) {
             $this->contratos->__set('nome', $data->nome);
             $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
@@ -70,12 +66,6 @@ class ContratosResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        /*
-       $query = "delete from contratos where id=?";
-       $stmt = $this->em->getConnection()->prepare($query);
-       $stmt->bindValue(1, $id);
-       return $stmt->execute();
-       */
         // deleta contratos por id
         $data = $this->em->getRepository(Contratos::class);
         $contrato = $data->find($id);
@@ -84,7 +74,7 @@ class ContratosResource extends AbstractResourceListener
             $this->em->flush();
             echo 'Contrato removido com sucesso';
         } else {
-            echo 'Contrato não encontrado, ou não existe';
+            return new ApiProblem( 404,'Contrato não encontrado, ou não existe');
         }
     }
 
@@ -199,24 +189,9 @@ class ContratosResource extends AbstractResourceListener
             $this->em->merge($cont);
             $this->em->flush();
         } else {
-            echo 'erro ao alterar Empresa !';
+            new ApiProblem(405, 'erro ao alterar Empresa !');
         }
-        /*
-        // atualiza os dados
-        $this->contratos->__set('caminho_Arquivo', $data->caminho);
-        $this->contratos->__set('situacao', $data->situacao);
-        $this->contratos->__set('id_empresa', $data->id_empresa);
-        $this->contratos->__set('id',$id);
 
-        $query = "insert into contratos(nome, tipo, id_Contrato_id) values(?,?,?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->contratos->__get('caminho_arquivo'));
-        $stmt->bindValue(2,$this->contratos->__get('situacao'));
-        $stmt->bindValue(3,$this->contratos->__get('id_empresa'));
-        $stmt->bindValue(4,$this->contratos->__get('id'));
-
-        return $stmt->execute();
-        */
     }
 
 }

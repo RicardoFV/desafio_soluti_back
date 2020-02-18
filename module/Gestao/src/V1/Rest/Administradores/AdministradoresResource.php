@@ -33,7 +33,7 @@ class AdministradoresResource extends AbstractResourceListener
             $this->em->persist($this->administradores);
             $this->em->flush();
         }else {
-            echo "erro ao inserir registro";
+           return new ApiProblem( 404,"erro ao inserir registro");
         }
     }
 
@@ -53,7 +53,7 @@ class AdministradoresResource extends AbstractResourceListener
             $this->em->flush();
             echo 'Administrador removido com sucesso';
         }else{
-            echo 'Administrador não encontrado, ou não existe';
+            return new ApiProblem(404,'Administrador não encontrado, ou não existe');
         }
     }
 

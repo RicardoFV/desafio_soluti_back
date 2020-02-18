@@ -31,7 +31,7 @@ class UsuariosResource extends AbstractResourceListener
             $this->em->persist($this->usuario);
             $this->em->flush();
         }else{
-            echo "erro ao inserir registro";
+            return new ApiProblem(405, "erro ao inserir registro");
         }
 
     }
@@ -53,7 +53,7 @@ class UsuariosResource extends AbstractResourceListener
             $this->em->flush();
             echo 'Usuário removido com sucesso';
         }else{
-            echo 'Usuario não encontrado, ou não existe';
+            return new ApiProblem(405, 'Usuario não encontrado, ou não existe');
         }
     }
 
@@ -157,7 +157,7 @@ class UsuariosResource extends AbstractResourceListener
             $this->em->persist($user);
             $this->em->flush();
         }else{
-            echo 'erro ao alterar usuário !';
+            return new ApiProblem( 405,'erro ao alterar usuário !');
         }
 
     }
