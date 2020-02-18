@@ -307,7 +307,7 @@ return [
                 'filters' => [],
                 'name' => 'arquivo',
                 'type' => \Zend\InputFilter\FileInput::class,
-                'field_type' => 'insersao de arquiv',
+                'field_type' => 'insersao de arquivo',
             ],
         ],
     ],

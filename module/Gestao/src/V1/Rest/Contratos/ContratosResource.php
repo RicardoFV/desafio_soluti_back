@@ -25,15 +25,17 @@ class ContratosResource extends AbstractResourceListener
 
     public function create($data)
     {
+        /*
        $inputFilter = $this->getInputFilter();
        $data = $inputFilter->getValues('arquivo');
-        $extensao = $data['arquivo']['name'];
-        $novo_nome = md5(time()).$extensao;
-        $novo_caminho = __DIR__ . '../../../../../../public/arquivo/';
+       $extensao = $data['arquivo']['name'];
+       $novo_nome = md5(time()).$extensao;
+       $novo_caminho = 'C:\Projetos\Desafio_Soluti\desafio_soluti_back\public\arquivos/';
+       // $novo_caminho = __DIR__ .'../../../../../../public/arquivos/';
 
         move_uploaded_file($data['arquivo']['tmp_name'], $novo_caminho .$novo_nome);
+        */
 
-        /*
         if ($data) {
             $this->contratos->__set('nome', $data->nome);
             $this->contratos->__set('caminho_arquivo', $data->camimho_arquivo);
@@ -44,18 +46,8 @@ class ContratosResource extends AbstractResourceListener
             $this->em->persist($this->contratos);
             $this->em->flush();
         } else {
-            echo 'erro ao alterar Contrato !';
+            return new ApiProblem( 'erro ao alterar Contrato !');
         }
-
-        /*
-        $query = "insert into contratos(caminho_arquivo, situacao, id_empresa_id, now()) values(?,?,?, ?)";
-        $stmt = $this->em->getConnection()->prepare($query);
-        $stmt->bindValue(1,$this->contratos->__get('caminho_Arquivo'));
-        $stmt->bindValue(2,$this->contratos->__get('situacao'));
-        $stmt->bindValue(3,$this->contratos->__get(id_empresa_id));
-
-        return $stmt->execute();
-        */
     }
 
     /**
@@ -114,25 +106,11 @@ class ContratosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        // busca os contratos que estão vinculado a cada Empresa,
-         // que estão com o status Pendente,
-         // vinculado aos seus administradores
-        // ordenada por nome do administrador
-        /*
-         *   $query = "SELECT c.nome as nome_contrato, c.situacao,
-                e.razao_social, e.nome_fantasia, e.cnpj, e.telefone, e.email,
-                adm.nome as nome_administrador
-                FROM contratos as c INNER JOIN empresas as e, contratos contadm JOIN administradores as adm
-                WHERE c.situacao ='pendente'
-                AND c.id_empresa = e.id
-                AND
-                adm.id_contrato = contadm.id";
-         */
-
-        $query = "SELECT * from contratos";
+        $query = "SELECT * FROM contratos";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
+
     }
 
     /**
