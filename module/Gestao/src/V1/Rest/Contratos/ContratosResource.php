@@ -90,7 +90,11 @@ class ContratosResource extends AbstractResourceListener
     public function fetch($id)
     {
         // faz a busca do contratos por id
-        $query = "select * from contratos where id=?";
+            $query = "select  a.id as id_administrador, a.nome as nome_administrador, a.tipo, a.id_contrato,
+                c.id as id_contrato, c.nome as nome_contrato, c.situacao, c.data_anexo, c.id_empresa,
+                e.id as id_empresa , e.nome_fantasia, e.cnpj, e.telefone, e.email,  e.razao_social, e.natureza_juridica, e.id_usuario
+                from empresas as e LEFT JOIN contratos as c on c.id_empresa = e.id,
+                administradores a LEFT JOIN contratos as cont on a.id_contrato = cont.id where a.id = ?";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->bindValue(1, $id);
         $stmt->execute();
@@ -110,8 +114,7 @@ class ContratosResource extends AbstractResourceListener
             e.id as id_empresa , e.nome_fantasia, e.cnpj, e.telefone, e.email,  e.razao_social, e.natureza_juridica, e.id_usuario,
             a.id as id_administrador, a.nome as nome_administrador, a.tipo, a.id_contrato
             from empresas as e LEFT JOIN contratos as c on c.id_empresa = e.id,
-            administradores a LEFT JOIN contratos as cont on a.id_contrato = cont.id
-            group by nome_administrador";
+            administradores a LEFT JOIN contratos as cont on a.id_contrato = cont.id";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -161,9 +164,10 @@ class ContratosResource extends AbstractResourceListener
     public function update($id, $data)
     {
         $resposta = $this->em->getRepository(Contratos::class);
-        $cont = $resposta->find(id);
+        $cont = $resposta->find($id);
 
         if ($cont) {
+            $cont->__set('nome', $data->nome);
             $cont->__set('caminho_Arquivo', $data->caminho);
             $cont->__set('situacao', $data->situacao);
             $cont->__set('id_empresa', $data->id_empresa);
