@@ -94,7 +94,7 @@ class AdministradoresResource extends AbstractResourceListener
     public function fetchAll($params = [])
     {
         // busca todos os administradores e retorna uma coletion
-        $query = "select * from administradores";
+        $query = "select * from administradores as a group by a.nome";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return  $stmt->fetchAll(\PDO::FETCH_OBJ);

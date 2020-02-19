@@ -154,7 +154,7 @@ class UsuariosResource extends AbstractResourceListener
             $user->__set('email',$data->email);
             $user->setSenha($data->senha);
 
-            $this->em->persist($user);
+            $this->em->merge($user);
             $this->em->flush();
         }else{
             return new ApiProblem( 405,'erro ao alterar usuário !');

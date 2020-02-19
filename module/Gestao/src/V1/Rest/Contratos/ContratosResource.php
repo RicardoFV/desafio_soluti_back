@@ -46,7 +46,7 @@ class ContratosResource extends AbstractResourceListener
             $this->em->persist($this->contratos);
             $this->em->flush();
         } else {
-            return new ApiProblem( 'erro ao alterar Contrato !');
+            return new ApiProblem('erro ao alterar Contrato !');
         }
     }
 
@@ -66,7 +66,7 @@ class ContratosResource extends AbstractResourceListener
             $this->em->flush();
             echo 'Contrato removido com sucesso';
         } else {
-            return new ApiProblem( 404,'Contrato não encontrado, ou não existe');
+            return new ApiProblem(404, 'Contrato não encontrado, ou não existe');
         }
     }
 
@@ -106,16 +106,20 @@ class ContratosResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        $query = "SELECT * FROM contratos";
+        $query = "select c.id as id_contrato, c.nome as nome_contrato, c.situacao, c.data_anexo, c.id_empresa, 
+            e.id as id_empresa , e.nome_fantasia, e.cnpj, e.telefone, e.email,  e.razao_social, e.natureza_juridica, e.id_usuario,
+            a.id as id_administrador, a.nome as nome_administrador, a.tipo, a.id_contrato
+            from empresas as e LEFT JOIN contratos as c on c.id_empresa = e.id,
+            administradores a LEFT JOIN contratos as cont on a.id_contrato = cont.id
+            group by nome_administrador";
         $stmt = $this->em->getConnection()->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
-
     }
 
     /**
      * Patch (partial in-place update) a resource
-     *
+
      * @param  mixed $id
      * @param  mixed $data
      * @return ApiProblem|mixed
@@ -169,7 +173,5 @@ class ContratosResource extends AbstractResourceListener
         } else {
             new ApiProblem(405, 'erro ao alterar Empresa !');
         }
-
     }
-
 }
